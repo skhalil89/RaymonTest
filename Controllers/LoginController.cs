@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using RaymonApiTaskTest.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,7 +16,7 @@ namespace RaymonApiTaskTest.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public partial class LoginController : ControllerBase
     {
         private IConfiguration _config;
 
@@ -65,21 +66,6 @@ namespace RaymonApiTaskTest.Controllers
                 user = new UserModel { Username = "Reza Mousavi", EmailAddress = "test.test@gmail.com" };
             }
             return user;
-        }
-
-        public class UserModel
-        {
-            public string Username { get; set; }
-            public string EmailAddress { get; set; }
-        }
-
-
-        [HttpPost]
-        [Route("invoice")]
-        public IActionResult Invoice(string userName)
-        {
-            RecurringJob.AddOrUpdate(() => Console.WriteLine($"Here is your invoice, {userName}"), Cron.Minutely);
-            return Ok($"Recurring Job Scheduled. Invoice will be mailed Minutely for {userName}!");
         }
 
     }
